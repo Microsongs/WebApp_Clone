@@ -1,0 +1,22 @@
+{
+  "name": "webapp_clone",
+  "version": "1.0.0",
+  "description": "server side javascript tutorials",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Microsongs/WebApp_Clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Microsongs/WebApp_Clone/issues"
+  },
+  "homepage": "https://github.com/Microsongs/WebApp_Clone#readme",
+  "dependencies": {
+    "underscore": "^1.11.0"
+  }
+}
