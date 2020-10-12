@@ -11,6 +11,52 @@ app.set('views','./views');
 
 app.use(express.static('public'));
 
+app.get('/topics',(req,res)=>{
+    // id에 따라 다른 정보를 나타내기 위해 배열에 정보를 담는다.
+    let topics = [
+        'JavaScript is...',
+        'Nodejs is...',
+        'Express is...'
+    ];
+    // a태그를 id에 따라 설정
+    let output = `
+    <a href="/topics?id=0">JavaScript</a><br>
+    <a href="/topics?id=1">Nodejs</a><br>
+    <a href="/topics?id=2">Express</a><br><br>
+    ${topics[req.query.id]}
+    `;
+    res.send(output);
+})
+
+// 요청 : req(request) 첫번째 매개변수의 값
+// request의 queryString의 id값을 호출 방법 -> req.query.id
+// :id로 뒤에 오는 값을 일단 id로 잡아준다.
+app.get('/topic/:id',(req,res)=>{
+    // id에 따라 다른 정보를 나타내기 위해 배열에 정보를 담는다.
+    let topics = [
+        'JavaScript is...',
+        'Nodejs is...',
+        'Express is...'
+    ];
+    // a태그를 id에 따라 설정
+    let str = `
+    <a href="/topic/0">JavaScript</a><br>
+    <a href="/topic/1">Nodejs</a><br>
+    <a href="/topic/2">Express</a><br><br>
+    `;
+    // topics[req.query.id]를 하면 id의 값에 따라 적절한 데이터가 나타남
+    // :id로 잡힌 것은 params로 잡는다
+    let output = str + topics[req.params.id];
+    res.send(output);
+})
+app.get('/topic/:id/:mode',(req,res)=>{
+    res.send(req.params.id+","+req.params.mode);
+})
+
+app.get('/param/:module_id/:topic_id',(req,res)=>{
+    res.json(req.params);
+})
+
 // /template에 소스코드를 가져와서 웹페이지를 만드는 랜더링을 사용
 app.get('/template',(req,res)=>{
     // temp라는 페이지를 rendering해서 전송한다.
