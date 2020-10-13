@@ -11,6 +11,17 @@ app.set('views','./views');
 
 app.use(express.static('public'));
 
+// form에 접속하였을 경우
+app.get('/form',(req,res)=>{
+    res.render('form.jade');
+})
+// form에서 정보를 받는 것
+app.get('/form_receiver',(req,res)=>{
+    let title = req.query.title;
+    let description = req.query.description;
+    res.send(title+','+description);
+})
+
 app.get('/topics',(req,res)=>{
     // id에 따라 다른 정보를 나타내기 위해 배열에 정보를 담는다.
     let topics = [

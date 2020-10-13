@@ -1,0 +1,15 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+    body
+        form(action='/form_receiver' method='post')
+            //html의 폼은 url을 만들어주는 것
+            // form태그의 action속성은 method를 생략/get으로 하면 get방식으로 전달한다.
+            // method를 post방식으로 하면 url에 나타나지 않는 post방식으로 전송된다
+            p
+                input(type='text' name='title')
+            p
+                textarea(name='description')
+            p  
+                input(type='submit')
