@@ -1,5 +1,7 @@
 // express를 실행할 경우 두 가지 약속을 정해둔 것
 const express = require('express');
+// body-parser를 사용
+const bodyParser = require('body-parser');
 let app = express();
 // jade의 소스를 pretty하게 변경하는 소스
 app.locals.pretty = true;
@@ -10,16 +12,24 @@ app.set('view engine','jade');
 app.set('views','./views');
 
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended:false}));
 
 // form에 접속하였을 경우
 app.get('/form',(req,res)=>{
     res.render('form.jade');
 })
+
 // form에서 정보를 받는 것
 app.get('/form_receiver',(req,res)=>{
     let title = req.query.title;
     let description = req.query.description;
     res.send(title+','+description);
+})
+
+app.post('/form_receiver',(req, res)=>{
+    let title = req.body.title;
+    let description = req.body.description;
+    res.send(title + ',' + description);
 })
 
 app.get('/topics',(req,res)=>{
