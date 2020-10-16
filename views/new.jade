@@ -4,11 +4,18 @@ html
         meta(http-equiv="Content-Type", content="text/html;charset=UTF-8")
         title title
     body
-        //topic이라는 경로로 사용자가 작성한 정보를 전송
-        form(action='/topic' method='post')
-            p
-                input(type='text' name='title' placeholder='title')
-            p
-                textarea(name='description')
-            p  
-                input(type='submit')
+        h1
+            a(href='/topic') Server Side JavaScript
+        ul
+            each topic in topics
+                li
+                    a(href='/topic'+topic)= topic
+        article
+            //topic이라는 경로로 사용자가 작성한 정보를 전송
+            form(action='/topic' method='post')
+                p
+                    input(type='text' name='title' placeholder='title')
+                p
+                    textarea(name='description')
+                p  
+                    input(type='submit')

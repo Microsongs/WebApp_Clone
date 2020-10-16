@@ -17,8 +17,68 @@ app.set('view engine','jade');
 
 //topic/new로 들어갔을 때 아래를 실행
 app.get('/topic/new',(req,res)=>{
-    res.render('new');
+    fs.readdir('data',(err,files)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        res.render('new',{topics:files});
+    });
 })
+
+//topic으로 들어오는 get반응
+app.get(['/topic','/topic/:id'], (req,res)=>{
+    // topic 페이지로 들어오면 글 목록이 화면에 표시되도록 구현
+    // topic에 글 목록을 띄우기 위해 디렉토리를 불러옴
+    fs.readdir('data',(err, files)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        var id = req.params.id;
+        console.log("id : " + id);
+        if(id){
+            // topic:id로 접근하였을 경우에만 실행 -> 이 부분은 id값이 있을 경우
+            fs.readFile('data/'+id,'utf8',(err,data)=>{
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');
+                }
+                res.render('view',{topics:files, title:id, description:data});
+            });
+        }
+        else{
+            // id값이 없을 경우 실행
+            // 첫인자 : 템플릿 파일 이름 2번쨰인자 -> 담을 인자를 객체 안에 담아서 전달
+            res.render('view',{topics:files, title:'Welcome', description:'Hello, JavaScript for Server'});
+        }
+    })
+})
+
+/*
+// 본문 읽기
+app.get('/topic/:id', (req,res)=>{
+    // 바뀔 수 있는 정보 -> :id
+    let id = req.params.id;
+
+    // 목록을 가져온다.
+    fs.readdir('data',(err, files)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        // 첫인자 : 템플릿 파일 이름 2번쨰인자 -> 담을 인자를 객체 안에 담아서 전달
+        // 데이터를 읽어옴
+        fs.readFile('data/'+id,'utf8',(err,data)=>{
+            if(err){
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            }
+            res.render('view',{topics:files, title:id, description:data});
+        });
+    })
+})
+*/
 
 //topic으로 들어오는 post를 반응
 app.post('/topic',(req,res)=>{
@@ -37,7 +97,7 @@ app.post('/topic',(req,res)=>{
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        res.send('Success');
+        res.redirect('/topic/' + title);
     })
 })
 

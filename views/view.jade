@@ -1,0 +1,26 @@
+doctype html
+html
+    head
+        title Topic
+        meta(http-equiv="Content-Type", content="text/html;charset=UTF-8")
+    body
+        h1
+            a(href='/topic/') Server Side JavaScript
+        ul
+            each topic in topics
+                li
+                    // a태그에 topic/topic값을 주고 topics배열 내의 topic을 연결
+                    a(href='/topic/' + topic)= topic
+        // 본문을 나타내는 태그
+        article
+            h2= title
+            = description
+        div
+            a(href='/topic/new') new
+        //
+            li
+                사용자가 nodejs라는 글을 보고 싶으면, 사용자는 주소를 topic/nodejs라는 곳으로 이동을 해야 한다
+                a(href='/topic/nodejs') nodejs
+                application은 데이터 떄문에 코드가 바뀌면 안됨 -> logic이 추가가 되어야 함
+
+            li
